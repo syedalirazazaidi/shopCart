@@ -1,6 +1,7 @@
 import React from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { AiOutlineMinusCircle } from "react-icons/ai";
+import { useSelector, useDispatch } from "react-redux";
 interface propSh {
   id: number;
   name: string;
@@ -9,7 +10,11 @@ interface propSh {
   quantity: number;
 }
 
-export const ShoeList = ({ name, photo, price, quantity }: propSh) => {
+export const ShoeList = ({ id, name, photo, price, quantity }: propSh) => {
+  const dispatch = useDispatch();
+  const addToCart = (id: number) => {
+    console.log(id);
+  };
   return (
     <article className="cocktail">
       <div className="img-container">
@@ -31,6 +36,7 @@ export const ShoeList = ({ name, photo, price, quantity }: propSh) => {
           >
             <button
               className="btn"
+              onClick={() => dispatch(addToCart(id))}
               style={{
                 padding: ".5rem",
                 border: "none",

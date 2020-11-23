@@ -39,7 +39,6 @@ export const Home = () => {
       <h2 className="section-title">Shoes</h2>
       <div className="cocktails-center">
         {shoes.map((shoe) => {
-          console.log(shoe);
           return <ShoeList key={shoe.id} {...shoe} />;
         })}
       </div>

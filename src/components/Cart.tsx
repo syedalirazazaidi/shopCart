@@ -18,19 +18,4 @@ export default function Cart() {
       </div>
     </div>
   );
-
-  {
-    /* // <nav className="navbar">
-    //   <div className="nav-center">
-    //     <ul className="nav-links">
-    //       <li>
-    //         <Link to="/">home</Link>
-    //       </li>
-    //       <li>
-    //         <Link to="/about">about</Link>
-    //       </li>
-    //     </ul>
-    //   </div>
-    // </nav> */
-  }
 }
