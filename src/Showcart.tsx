@@ -3,16 +3,21 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { v1 as uuidv1 } from "uuid";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { shoesReducerApp, shoesReducer } from "./Types/types";
+import { deleteCart } from "./Redux/CartSlice";
 
 const Showcart = () => {
+  const dispatch = useDispatch();
   let history = useHistory();
   const getCart: shoesReducer = useSelector(
     (state: shoesReducerApp) => state.reducers
   );
   const handleBack = () => {
     history.push("/");
+  };
+  const onDelete = (id: number) => {
+    dispatch(deleteCart(id));
   };
   if (!getCart.cart.length) {
     return (
@@ -63,7 +68,7 @@ const Showcart = () => {
             padding: "7px",
             color: "red",
           }}
-          onClick={() => console.log("clear cart")}
+          onClick={() => onDelete(id)}
         >
           Delete
         </button>

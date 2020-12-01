@@ -45,7 +45,10 @@ const cartSlice = createSlice({
       state.isLoading = false;
       return;
     },
-    deleteCart(state, action) {},
+    deleteCart(state, action) {
+      console.log("aagga", action.payload);
+      state.cart = state.cart.filter((item) => item.id !== action.payload);
+    },
     increaseCart() {},
     decreaseCart() {},
   },
