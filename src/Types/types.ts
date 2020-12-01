@@ -5,3 +5,11 @@ export interface shoesType {
   photo: string;
   quantity: number;
 }
+export interface shoesReducer {
+  cart: shoesType[];
+  error: string;
+  isLoading: boolean;
+}
+export interface shoesReducerApp {
+  reducers: { cart: shoesType[]; error: string; isLoading: boolean };
+}

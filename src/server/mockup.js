@@ -1,15 +1,26 @@
-import { Server } from "miragejs";
+import { Server, Model } from "miragejs";
 import image1 from "./assets/Images/image4.jpg";
 import image2 from "./assets/Images/image5.jpg";
 import image3 from "./assets/Images/image6.jpg";
 import image4 from "./assets/Images/image7.jpg";
 import image5 from "./assets/Images/image8.jpg";
 import image6 from "./assets/Images/image3.jpg";
-export function makeServer() {
+export function makeServer({ environment = "development" } = {}) {
   let server = new Server({
+    environment,
+    models: {
+      shoe: Model,
+    },
+    seeds(server) {
+      server.create("shoe", {
+        shoes: [],
+      });
+    },
+
     routes() {
-      // this.namespace = 'api';
-      this.get("/api/shoes", () => [
+      this.timing = 1000;
+      this.api = "api";
+      this.get("/shoes", () => [
         {
           id: 1,
           name: "Buffalo - Striploin",
@@ -53,6 +64,15 @@ export function makeServer() {
           quantity: 1,
         },
       ]);
+
+      this.get("/postcart", (schema) => {
+        return schema.shoes.all();
+      });
+      this.post("/postcart", (schema, request) => {
+        let shoesItems = JSON.parse(request.requestBody);
+        console.log(shoesItems, "LOLPPLP");
+        return schema.shoes.create({ shoesItems });
+      });
     },
   });
   return server;

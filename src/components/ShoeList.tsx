@@ -2,6 +2,9 @@ import React from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { AiOutlineMinusCircle } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
+import { shoesType } from "../Types/types";
+import { addToCart } from "../Redux/CartSlice";
+import { shoesReducerApp, shoesReducer } from "../Types/types";
 interface propSh {
   id: number;
   name: string;
@@ -9,12 +12,26 @@ interface propSh {
   price: number;
   quantity: number;
 }
+interface cartProp {
+  shoes: shoesType;
+}
 
-export const ShoeList = ({ id, name, photo, price, quantity }: propSh) => {
+export const ShoeList = ({ shoes }: cartProp) => {
+  const [added, isAdded] = React.useState(false);
+  const { id, name, photo, price, quantity } = shoes;
+
   const dispatch = useDispatch();
-  const addToCart = (id: number) => {
-    console.log(id);
+  const createCart = (shoes: propSh) => {
+    dispatch(addToCart(shoes));
+    isAdded(true);
+    setTimeout(() => {
+      isAdded(false);
+    }, 2500);
   };
+
+  const getCart: shoesReducer = useSelector(
+    (state: shoesReducerApp) => state.reducers
+  );
   return (
     <article className="cocktail">
       <div className="img-container">
@@ -36,7 +53,7 @@ export const ShoeList = ({ id, name, photo, price, quantity }: propSh) => {
           >
             <button
               className="btn"
-              onClick={() => dispatch(addToCart(id))}
+              onClick={() => createCart(shoes)}
               style={{
                 padding: ".5rem",
                 border: "none",
@@ -46,7 +63,7 @@ export const ShoeList = ({ id, name, photo, price, quantity }: propSh) => {
                 cursor: "pointer",
               }}
             >
-              Add To Cart
+              {!added ? "ADD TO CART" : "✔ ADDED"}
             </button>
           </div>
           <div style={{ justifyContent: "space-around", display: "flex" }}>

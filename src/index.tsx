@@ -5,6 +5,7 @@ import App from "./App";
 import { makeServer } from "./server/mockup";
 import { Provider } from "react-redux";
 import { store } from "./Redux/store";
+makeServer({ environment: "development" });
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
@@ -13,4 +14,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById("root")
 );
-makeServer();

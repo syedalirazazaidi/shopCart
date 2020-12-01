@@ -5,6 +5,7 @@ import { SingleProduct } from "./components/SingleProduct";
 import { Error } from "./components/Error";
 
 import Cart from "./components/Cart";
+import Showcart from "./Showcart";
 
 function App() {
   return (
@@ -14,9 +15,14 @@ function App() {
         <Route exact path="/">
           <Home />
         </Route>
-        <Route path="/cart">
-          <Cart />
-        </Route>
+
+        <Route exact path="/showcart" component={Showcart} />
+        {/* doc */}
+        {/* <ShowCart /> */}
+        {/* <ShowCart /> */}
+        {/* <ShowCart /> */}
+        {/* <Cart /> */}
+        {/* </Route> */}
         <Route path="/cocktail/:id">
           <SingleProduct />
         </Route>

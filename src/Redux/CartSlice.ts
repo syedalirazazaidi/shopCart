@@ -1,45 +1,66 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { shoesType } from "./../Types/types";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { shoesReducer } from "../Types/types";
+import axios from "axios";
 
-export const fetchUserById = createAsyncThunk(
-  "add/addtocart",
-  async (userId, thunkAPI) => {
-    const response = await userAPI.fetchById(userId);
-    return response.data;
+export const fetchCartItems: any = createAsyncThunk(
+  "carts/fetchCartItems",
+  (userId, thunkAPI) => {
+    const response = axios.get("/postcartabc");
+    // userAPI.fetchById(userId);
+    console.log(response, "POPOPOPOP");
+    return response;
   }
 );
+// export const postCartItems: any = createAsyncThunk(
+//   "carts/fetchCartItems",
+//   async (payload, thunkAPI) => {
+//     console.log(payload, "LOADDDDD");
+//     axios
+//       .post("/api/postcart", payload)
+//       .then(({ data }) => data)
+//       .catch((err) => {
+//         console.error(err);
+//       });
+//   }
+// );
 
+// interface shoesReducer {
+//   cart: [];
+//   isLoading: false;
+//   error: "";
+// }
 const cartSlice = createSlice({
   name: "cart",
-  initialState: {
+  initialState: <shoesReducer>{
     cart: [],
-    isLoading: false,
+    isLoading: true,
     error: "",
   },
-  reducers: {
-    addToCart(state, action) {
-      console.log(action.payload, "loko");
 
-      //   const { id, text } = action.payload;
-      //   state.push({ id, text, completed: false });
+  reducers: {
+    addToCart: (state, { payload }: PayloadAction<shoesType>) => {
+      state.cart = [...state.cart, payload];
+      state.error = "there is error";
+      state.isLoading = false;
+      return;
     },
-    deleteCart(state, action) {
-      //   const todo = state.find((todo) => todo.id === action.payload);
-      //   if (todo) {
-      //     todo.completed = !todo.completed;
-      //   }
-    },
+    deleteCart(state, action) {},
+    increaseCart() {},
+    decreaseCart() {},
   },
   extraReducers: {
-    [fetchUserById.fulfilled]: (state, action) => {
-      // Add user to the state array
+    [fetchCartItems.fulfilled]: (state, action) => {
+      console.log(state, "longing");
+      state.error = "error are here";
       state.isLoading = false;
-      //   state.entities.push(action.payload);
+      console.log(state, "STATE+++");
     },
-    [fetchUserById.pending]: (state, action) => {
+    [fetchCartItems.pending]: (state, action) => {
       // Add user to the state array
       state.isLoading = true;
     },
-    [fetchUserById.rejected]: (state, action) => {
+    [fetchCartItems.rejected]: (state, action) => {
       // Add user to the state array
       state.isLoading = false;
       state.error = "Error";
@@ -48,5 +69,7 @@ const cartSlice = createSlice({
 });
 
 export const { addToCart, deleteCart } = cartSlice.actions;
-
+// export const selectCount = (state: any) => ({
+//   cart: state.reducers,
+// });
 export default cartSlice.reducer;
