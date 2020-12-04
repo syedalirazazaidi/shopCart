@@ -1,56 +1,79 @@
 import { shoesType } from "./../Types/types";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { shoesReducer } from "../Types/types";
+import { shoesReducer, shoesReducerApp } from "../Types/types";
 import axios from "axios";
-
+interface cartdrraay {
+  tempCart: [];
+}
 export const fetchCartItems: any = createAsyncThunk(
   "carts/fetchCartItems",
   (userId, thunkAPI) => {
     const response = axios.get("/postcartabc");
-    // userAPI.fetchById(userId);
     console.log(response, "POPOPOPOP");
     return response;
   }
 );
-// export const postCartItems: any = createAsyncThunk(
-//   "carts/fetchCartItems",
-//   async (payload, thunkAPI) => {
-//     console.log(payload, "LOADDDDD");
-//     axios
-//       .post("/api/postcart", payload)
-//       .then(({ data }) => data)
-//       .catch((err) => {
-//         console.error(err);
-//       });
-//   }
-// );
-
-// interface shoesReducer {
-//   cart: [];
-//   isLoading: false;
-//   error: "";
-// }
 const cartSlice = createSlice({
   name: "cart",
   initialState: <shoesReducer>{
     cart: [],
     isLoading: true,
     error: "",
+    total: 0,
+    amount: 1,
+    // quantityA: 0,
+    quantityA: 0,
   },
 
   reducers: {
     addToCart: (state, { payload }: PayloadAction<shoesType>) => {
-      state.cart = [...state.cart, payload];
-      state.error = "there is error";
-      state.isLoading = false;
-      return;
+      if (state.quantityA == 0) {
+        let carts = {
+          id: payload.id,
+          quantity: 1,
+          name: payload.name,
+          photo: payload.photo,
+          price: payload.price,
+        };
+        state.cart.push(carts);
+      } else {
+        let check = false;
+        state.cart.map((item, key) => {
+          if (item.id == payload.id) {
+            state.cart[key].quantity++;
+            check = true;
+          }
+        });
+        if (!check) {
+          let _cart = {
+            id: payload.id,
+            quantity: 1,
+            name: payload.name,
+            photo: payload.photo,
+            price: payload.price,
+          };
+          state.cart.push(_cart);
+        }
+      }
+      state.quantityA = state.quantityA + 1;
     },
+
     deleteCart(state, action) {
-      console.log("aagga", action.payload);
       state.cart = state.cart.filter((item) => item.id !== action.payload);
     },
-    increaseCart() {},
-    decreaseCart() {},
+    increaseCart(state, { payload }) {
+      state.quantityA = state.quantityA + 1;
+      console.log(state.cart[payload].quantity, "PLPLP");
+      state.cart[payload].quantity = state.cart[payload].quantity + 1;
+    },
+    decreaseCart(state, action) {
+      let quantity = state.cart[action.payload].quantity;
+      if (quantity > 1) {
+        state.quantityA = state.quantityA - 1;
+        state.cart[action.payload].quantity =
+          state.cart[action.payload].quantity - 1;
+      }
+    },
   },
   extraReducers: {
     [fetchCartItems.fulfilled]: (state, action) => {
@@ -71,7 +94,12 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, deleteCart } = cartSlice.actions;
+export const {
+  addToCart,
+  deleteCart,
+  increaseCart,
+  decreaseCart,
+} = cartSlice.actions;
 // export const selectCount = (state: any) => ({
 //   cart: state.reducers,
 // });

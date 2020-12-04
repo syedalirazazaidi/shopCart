@@ -9,7 +9,17 @@ export interface shoesReducer {
   cart: shoesType[];
   error: string;
   isLoading: boolean;
+  total: number;
+  amount: number;
+  quantityA: number;
 }
 export interface shoesReducerApp {
-  reducers: { cart: shoesType[]; error: string; isLoading: boolean };
+  reducers: {
+    cart: shoesType[];
+    error: string;
+    isLoading: boolean;
+    total: number;
+    amount: number;
+    quantityA: number;
+  };
 }

@@ -151,6 +151,11 @@ Navbar
   display: flex;
   align-items: center;
 }
+.showcartItm {
+  margin-top: "20px";
+  padding: "5px 5px";
+}
+
 .nav-links a {
   text-transform: capitalize;
   display: inline-block;
@@ -206,9 +211,9 @@ Cocktails List
   /* left: 60.5rem; */
   display: flex;
   justify-content: space-around;
-  margin-top: 6rem;
+  margin-top: 7rem;
   /* top: 6rem; */
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
 }
 
 .btn :hover {
@@ -216,7 +221,12 @@ Cocktails List
 }
 .section {
   padding: 5rem 0;
+  margin-top: 5px;
 }
+.search-div {
+  margin-bottom: 14px;
+}
+
 .section-title {
   position: relative;
   font-size: 2rem;
@@ -302,14 +312,19 @@ Form
 }
 
 .search-form {
-  width: var(--smallWidth);
+  /* width: var(--smallWidth); */
   margin: 0 auto;
-  max-width: var(--maxWidth);
-  background: var(--mainWhite);
-  padding: 2rem 2.5rem;
+  /* max-width: var(--maxWidth); */
+  /* background: var(--mainWhite); */
+  padding: 1rem 1.5rem;
   text-transform: capitalize;
   border-radius: var(--mainBorderRadius);
   box-shadow: var(--lightShadow);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  /* margin-top: "10px"; */
+  flex-wrap: wrap;
 }
 
 .form-control label {
@@ -391,12 +406,18 @@ Cocktail
 }
 @media only screen and (max-width: 600px) {
   .cart-container {
-    position: absolute;
     left: 4.5rem;
-    margin-top: 4rem;
   }
   .cocktail {
     margin-top: 2rem;
+  }
+
+  .showcartItm img {
+    margin-top: "16rem";
+  }
+
+  .cocktails-center {
+    margin-top: "16rem";
   }
 }
 @media screen and (min-width: 992px) {

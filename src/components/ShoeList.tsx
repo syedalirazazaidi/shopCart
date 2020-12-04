@@ -3,7 +3,7 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 import { AiOutlineMinusCircle } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import { shoesType } from "../Types/types";
-import { addToCart } from "../Redux/CartSlice";
+import { addToCart, increaseCart, decreaseCart } from "../Redux/CartSlice";
 import { shoesReducerApp, shoesReducer } from "../Types/types";
 interface propSh {
   id: number;
@@ -32,6 +32,14 @@ export const ShoeList = ({ shoes }: cartProp) => {
   const getCart: shoesReducer = useSelector(
     (state: shoesReducerApp) => state.reducers
   );
+  // const increaseItem = (id: number) => {
+  //   dispatch(increaseCart(id));
+  // };
+
+  // const decreaseItem = (id: number) => {
+  //   dispatch(decreaseCart(id));
+  // };
+
   return (
     <article className="cocktail">
       <div className="img-container">
@@ -40,6 +48,7 @@ export const ShoeList = ({ shoes }: cartProp) => {
       <div className="cocktail-footer">
         <h3>{name}</h3>
         <h4>{price}</h4>
+
         <div>
           <div
             style={{
@@ -64,29 +73,6 @@ export const ShoeList = ({ shoes }: cartProp) => {
               }}
             >
               {!added ? "ADD TO CART" : "✔ ADDED"}
-            </button>
-          </div>
-          <div style={{ justifyContent: "space-around", display: "flex" }}>
-            <button
-              style={{
-                outline: "none",
-                border: "none",
-                backgroundColor: "#fff",
-                cursor: "pointer",
-              }}
-            >
-              <AiOutlinePlusCircle size="2rem" />
-            </button>
-            <p>{}number</p>
-            <button
-              style={{
-                outline: "none",
-                border: "none",
-                backgroundColor: "#fff",
-                cursor: "pointer",
-              }}
-            >
-              <AiOutlineMinusCircle size="2rem" />
             </button>
           </div>
         </div>

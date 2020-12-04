@@ -15,15 +15,8 @@ function App() {
         <Route exact path="/">
           <Home />
         </Route>
-
         <Route exact path="/showcart" component={Showcart} />
-        {/* doc */}
-        {/* <ShowCart /> */}
-        {/* <ShowCart /> */}
-        {/* <ShowCart /> */}
-        {/* <Cart /> */}
-        {/* </Route> */}
-        <Route path="/cocktail/:id">
+        <Route path="/singleproduct/:id">
           <SingleProduct />
         </Route>
         <Route path="*">

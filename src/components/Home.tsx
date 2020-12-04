@@ -8,12 +8,8 @@ export const Home = () => {
   const [shoes, setShoesData] = React.useState<shoesType[]>([]);
   const [loading, setLoading] = React.useState(false);
   let fetchData = async () => {
-    try {
-      const getShoes: shoesType[] = await getStoreData();
-      setShoesData(getShoes);
-    } catch (error) {
-      console.log(error);
-    }
+    const getShoes: shoesType[] = await getStoreData();
+    setShoesData(getShoes);
   };
   React.useEffect(() => {
     fetchData();
@@ -37,6 +33,14 @@ export const Home = () => {
   return (
     <section className="section">
       <h2 className="section-title">Shoes</h2>
+      <div className="search-div">
+        <input
+          type="text"
+          placeholder="search a product"
+          className="search-form"
+        />
+      </div>
+
       <div className="cocktails-center">
         {shoes.map((shoe) => {
           return <ShoeList key={shoe.id} shoes={shoe} />;
