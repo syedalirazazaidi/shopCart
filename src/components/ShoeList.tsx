@@ -32,13 +32,6 @@ export const ShoeList = ({ shoes }: cartProp) => {
   const getCart: shoesReducer = useSelector(
     (state: shoesReducerApp) => state.reducers
   );
-  // const increaseItem = (id: number) => {
-  //   dispatch(increaseCart(id));
-  // };
-
-  // const decreaseItem = (id: number) => {
-  //   dispatch(decreaseCart(id));
-  // };
 
   return (
     <article className="cocktail">
